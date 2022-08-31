@@ -1,0 +1,27 @@
+// 文字超出单行宽度显示省略号
+.textLineHidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 文字超出多行高度显示省略号
+.generate-columns(@n, @i: 2) when (@i =< @n) {
+  .text@{i}LineHidden {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @i;
+  }
+  .generate-columns(@n, (@i + 1));
+}
+.generate-columns(10);
+
+// 背景图自适应填充
+.backgroundAuto {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
