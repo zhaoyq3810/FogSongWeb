@@ -1,5 +1,6 @@
 <template>
   <n-config-provider>
+    <n-global-style />
     <TabBar v-show="$route.meta.tabbar" />
     <div id="app-content-box" ref="view" v-resize="viewResize">
       <router-view v-slot="{ Component }">
@@ -26,6 +27,8 @@ const view = ref(<IRefEl>null)
 function viewResize(info: IObj) {
   viewMode(info.width)
 }
+
+// 主题
 
 </script>
 
