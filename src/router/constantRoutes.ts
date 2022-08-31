@@ -13,7 +13,7 @@ export default [
   {
     path: '/',
     name: 'home',
-    meta: { title: 'Home', cache },
+    meta: { title: 'Home', cache, tabbar },
     component: () => import('@/views/Home/Home.vue'),
   },
 ] as IRouter
