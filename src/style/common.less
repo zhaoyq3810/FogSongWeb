@@ -1,3 +1,4 @@
+@import "./variables";
 // 文字超出单行宽度显示省略号
 .textLineHidden {
   white-space: nowrap;
@@ -24,4 +25,28 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+}
+
+// 美化滚动条
+::-webkit-scrollbar {
+  width: (14 * @pc);
+  height: (30 * @pc);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(#101F1C, 0.1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, 0.5);
+  background-clip: padding-box;
+  min-height: 28px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  transition: 1s;
+  cursor: pointer;
 }

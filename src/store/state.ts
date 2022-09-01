@@ -17,8 +17,6 @@ export default {
 
   // 收藏
   like: [],
-  // 主题配置
-  theme: '',
 
   // 浏览记录
   history: [],

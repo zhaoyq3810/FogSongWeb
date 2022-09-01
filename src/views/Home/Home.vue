@@ -1,7 +1,6 @@
 <template>
   <div class="wrap">
-    Home
-    <n-button>asd</n-button>
+    <div class="home">1</div>
   </div>
 </template>
 
@@ -10,9 +9,8 @@
 </script>
 
 <style scoped lang="less">
-.wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.home {
+  background: #B7E8BD;
+  height: 1000px;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <n-config-provider>
     <n-global-style />
-    <TabBar v-show="$route.meta.tabbar" />
+    <WebTabBar v-show="$route.meta.tabbar && isViewMode === 'Web'" />
+    <MobileTabBar v-show="$route.meta.tabbar && isViewMode === 'Mobile'" />
     <div id="app-content-box" ref="view" v-resize="viewResize">
       <router-view v-slot="{ Component }">
         <keep-alive>
@@ -14,9 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import TabBar from '@/components/TabBar.vue'
+import WebTabBar from '@/components/TabBar/WebTabBar.vue'
+import MobileTabBar from '@/components/TabBar/MobileTabBar.vue'
 import viewMode from '@/utils/viewMode'
 import { IEl, IObj, IRefEl } from '@/interface'
+import { storeState } from '@/store/Tools'
 
 onMounted(() => {
   viewMode((view.value as IEl).offsetWidth)
@@ -28,7 +31,8 @@ function viewResize(info: IObj) {
   viewMode(info.width)
 }
 
-// 主题
+// 视图模式
+const isViewMode = computed(() => storeState.viewMode)
 
 </script>
 

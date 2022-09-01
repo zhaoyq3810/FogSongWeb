@@ -135,19 +135,14 @@ body {
       display: flex;
       flex-direction: column;
       height: 100%;
-      overflow-y: hidden;
       background: #F1F2F6;
     }
   }
-  #tab-bar {
-    flex: 0 0 60px;
-    background: white;
-  }
   #app-content-box {
     flex: 1 1;
+    overflow-y: auto;
+    .wrap {
+      height: 100%;
+    }
   }
-}
-.wrap {
-  overflow-y: auto;
-  height: 100%;
 }
