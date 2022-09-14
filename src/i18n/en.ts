@@ -8,7 +8,7 @@ export default {
     custom: 'Custom',
   },
   lang: {
-    popover: 'Languages',
+    popover: 'Choose a language you can read',
     cn: '简体中文',
     en: 'English',
   },

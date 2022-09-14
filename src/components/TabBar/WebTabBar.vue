@@ -35,7 +35,9 @@
             v-for="d in ['cn', 'en']"
             :key="d"
             class="lang-items"
-            :class="{ 'act-text': lang === d }"
+            :data-text="$t(`lang.${ d }`)"
+            :class="{ 'act-border': lang === d, 'gradient-text': lang === d }"
+            :style="{ borderBottom: lang === d ? '1px solid' : 'none' }"
             @click="setLang(d)"
           >
             {{ $t(`lang.${ d }`) }}
@@ -44,7 +46,7 @@
       </n-popover>
       <n-popover trigger="hover">
         <template #trigger>
-          <n-icon class="icon" :component="LogoGithub" />
+          <n-icon class="icon" :component="LogoGithub" @click="goGithub" />
         </template>
         <span>{{ $t('github.popover') }}</span>
       </n-popover>
@@ -59,13 +61,13 @@
         </template>
         <div class="weixin">
           <div class="weixin-card-title">
-            <img class="author-avatar" src="@/assets/author_weixin_avatar.jpg" alt="" />
+            <img class="author-avatar" src="@/assets/author_weixin_avatar.png" alt="" />
             <div class="author-info">
               <div class="author-name">雾歌</div>
               <div class="author-wx">Z3276255289</div>
             </div>
           </div>
-          <img class="weixin-add-friend" src="@/assets/weixin_add_friend.jpg" alt="">
+          <img class="weixin-add-friend" src="@/assets/weixin_add_friend.png" alt="">
           <p>{{ $t('WeiXin.remarkOne') }}</p>
           <p>{{ $t('WeiXin.remarkTwo') }}</p>
         </div>
@@ -96,6 +98,7 @@ import { Planet, NavigateSharp, ReloadCircleSharp, LogoWechat, ColorPalette, Lan
 import router from '@/router'
 import { whiteThere, blackThere } from '@/style/there'
 import i18n from '@/i18n/i18n'
+import { newOpenWeb } from '@/utils/common'
 
 // 去首页
 const goHome = () => router.push('/')
@@ -106,11 +109,16 @@ const act = computed(() => value.value !== '')
 
 // 当前语言
 const lang = ref(sessionStorage.getItem('fogsong_lang') || 'cn')
-function setLang(language: string) {
+function setLang(language: 'cn' | 'en') {
   lang.value = language
   sessionStorage.setItem('fogsong_lang', language)
   i18n.global.locale = language
 }
+// 去 Github
+function goGithub() {
+  newOpenWeb('https://github.com/zhaoyq3810/FogSongWeb')
+}
+
 </script>
 
 <style scoped lang="less">
@@ -212,6 +220,7 @@ function setLang(language: string) {
     height: 100%;
     width: 48%;
     font-size: (20 * @pc);
+    border-radius: (5 * @pc);
     .flexCenter;
   }
 }
