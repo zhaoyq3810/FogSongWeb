@@ -16,6 +16,7 @@
   "rules": {
     "quote-props": "off",
     "camelcase": "off",
+    "no-undef": "off", // 禁用 vue自动引入的配置 未引入的报错
     "vue/return-in-computed-property": "off",
     "no-lonely-if": "off",
     "no-useless-escape": "off",

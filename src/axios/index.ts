@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import { Toast } from 'vant'
 import { storeState, storeCommit } from '@/store/Tools'
 import router from '@/router'
 import { IObj, IAxiosReqFunc } from '@/interface'
@@ -34,10 +33,8 @@ axios.interceptors.response.use(
       if (
         data.code
         && data.code !== 200
-        && data.code !== 100 // 注册时：账号存在，未填写类型信息
-        && data.code !== 203 // 注册时：账号存在，未填写顾问信息
       ) {
-        Toast.fail(data.msg)
+        alert(data.msg)
         return Promise.reject(response)
       }
       return data
@@ -84,19 +81,19 @@ axios.interceptors.response.use(
       }
       const data = error.response.data
       if (data.error_description) {
-        Toast.fail(data.error_description)
+        alert(data.error_description)
       } else {
-        Toast.fail(message)
+        alert(message)
       }
       if (status === 401 || status === 403) {
         storeCommit('init')
         localStorage.clear()
         sessionStorage.clear()
-        router.push('/login')
+        router.push('/')
       }
       return Promise.reject(error)
     }
-    Toast.fail('服务器响应失败，请稍后再试')
+    alert('服务器响应失败，请稍后再试')
     return Promise.reject(error)
   },
 )

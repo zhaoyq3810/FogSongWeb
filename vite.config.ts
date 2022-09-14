@@ -45,11 +45,18 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
+        charset: false,
+        additionalData: '@import "./src/style/variables.less";',
         javascriptEnabled: true,
       },
     },
     postcss: {
       plugins: [
+        require('autoprefixer')({
+          overrideBrowserslist: [
+            'last 10 versions', // 所有主流浏览器最近10版本用
+          ],
+        }),
         require('postcss-pxtorem')({
           rootValue: 37.5,
           propList: ['*'],

@@ -11,6 +11,7 @@ declare module '*.vue' {
  * 自定义无 @types 外部包引用
  */
 declare module 'unplugin-auto-import'
+declare module 'vue-resize-observer'
 
 /**
  * @param {string} VITE_APP_{ENV_NAME}

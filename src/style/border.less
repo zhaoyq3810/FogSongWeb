@@ -1,0 +1,14 @@
+// 动态边框
+.act-border {
+  border-image: linear-gradient(45deg, gold, deeppink) 1;
+  animation: act-border-cycling 6s infinite linear;
+  filter: hue-rotate(360deg);
+}
+@keyframes act-border-cycling {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

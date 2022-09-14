@@ -1,0 +1,21 @@
+// 跑马灯文字
+.gradient-text {
+  background-image: -webkit-linear-gradient(left,
+  #E0B9FF, #E6D205, #0DCDA4,
+  #E0B9FF, #E6D205, #0DCDA4,
+  #0DCDA4,
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation:  gradient-text-cycling 1s infinite linear;
+}
+
+@keyframes gradient-text-cycling {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

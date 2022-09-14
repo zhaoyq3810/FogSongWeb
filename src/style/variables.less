@@ -1,0 +1,46 @@
+// 文字效果
+@import "./text";
+// 文本多行省略
+@import "./textLineHidden";
+// 边框效果
+@import "./border";
+
+/**
+ * 375 适配 1920 -- rem方案
+ * Mobile 1px === Web 1px * ( 375 / 1920 )
+ */
+@pc: 0.1953125px;
+
+// color
+@green: #C7EDCC;
+@yellow: #FAF9DE;
+@brown: #FFF2E2;
+@red: #FDE6E0;
+@green2: #E3EDCD;
+@blue: #DCE2F1;
+@purple: #E9EBFE;
+@gray2: #EAEAEF;
+@green3: #B7E8BD;
+
+// gradient
+@GradientDawn: linear-gradient(45deg, #FF626E, #FFBE71); // 晨曦
+@GradientRouge: linear-gradient(45deg, #EEC9A3, #EF629F); // 胭脂
+@GradientInkBlack: linear-gradient(45deg, #B2B9BE, #2F4052); // 水墨黑
+@GradientAzure: linear-gradient(45deg, #6190E8, #A7BFE8); // 天蓝
+@GradientWaterGreen: linear-gradient(45deg, #0DCDA4, #C2FCD4); // 水绿
+@GradientWatermelonRed: linear-gradient(45deg, #D66D75, #F2AA9D); // 西瓜红
+@GradientLavender: linear-gradient(45deg, #D9A7C7, #FFFCDC); // 薰衣草
+@GradientSunset: linear-gradient(45deg, #FDD819, #E04C4C); // 夕阳
+@GradientDarkGreen: linear-gradient(45deg, #18545A, #F1F2B5); // 墨绿
+@GradientQuicksandGold: linear-gradient(45deg, #D39340, #FFD194); // 流沙金
+@GradientBarbiePowder: linear-gradient(45deg, #E0B9FF, #FF9A9E); // 芭比粉
+@GradientInkBlue: linear-gradient(45deg, #3CA1AF, #C4E0E5); // 水墨蓝
+@GradientBlueDazzlingPurple: linear-gradient(45deg, #F902FF, #00DBED); // 蓝炫紫
+@GradientPink: linear-gradient(45deg, #F902FF, #00DBED); // 粉红
+
+// flex布局实现 全居中
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
