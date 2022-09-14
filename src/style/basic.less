@@ -1,3 +1,5 @@
+@import "./variables";
+
 html,
 body,
 div,
@@ -145,4 +147,28 @@ body {
       height: 100%;
     }
   }
+}
+
+// 美化滚动条
+::-webkit-scrollbar {
+  width: (14 * @pc);
+  height: (30 * @pc);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(#101F1C, 0.1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, 0.5);
+  background-clip: padding-box;
+  min-height: 28px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  transition: 1s;
+  cursor: pointer;
 }

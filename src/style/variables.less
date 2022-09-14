@@ -31,17 +31,62 @@
 @GradientBlueDazzlingPurple: linear-gradient(45deg, #F902FF, #00DBED); // 蓝炫紫
 @GradientPink: linear-gradient(45deg, #F902FF, #00DBED); // 粉红
 
+// 文字超出单行宽度显示省略号
+.textLineHidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 文字超出多行高度显示省略号
+.generate-columns(@n, @i: 2) when (@i =< @n) {
+  .text@{i}LineHidden {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @i;
+  }
+  .generate-columns(@n, (@i + 1));
+}
+.generate-columns(10);
+
+// flex布局实现 全居中
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // 动态边框
 .act-border {
   border-image: linear-gradient(45deg, gold, deeppink) 1;
-  animation: huerotate 6s infinite linear;
+  animation: act-border-cycling 6s infinite linear;
   filter: hue-rotate(360deg);
 }
-@keyframes huerotate {
+@keyframes act-border-cycling {
   0% {
     filter: hue-rotate(0deg);
   }
   100% {
     filter: hue-rotate(360deg);
+  }
+}
+
+// 动态文字
+.act-text {
+  background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation:  act-text-cycling 4s infinite linear;
+}
+
+@keyframes act-text-cycling {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
   }
 }

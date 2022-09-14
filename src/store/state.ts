@@ -5,8 +5,11 @@ export default {
   token: '',
   // refreshToken
   refreshToken: '',
+
   // 视图样式
   viewMode: '',
+  // 当前主题
+  there: '',
 
   // 用户 id
   userId: '',

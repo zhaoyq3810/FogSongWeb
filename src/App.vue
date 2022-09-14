@@ -1,8 +1,8 @@
 <template>
   <n-config-provider>
     <n-global-style />
-    <WebTabBar v-show="$route.meta.tabbar && isViewMode === 'Web'" />
-    <MobileTabBar v-show="$route.meta.tabbar && isViewMode === 'Mobile'" />
+    <WebTabBar v-if="$route.meta.tabbar && isViewMode === 'Web'" />
+    <MobileTabBar v-if="$route.meta.tabbar && isViewMode === 'Mobile'" />
     <div id="app-content-box" ref="view" v-resize="viewResize">
       <router-view v-slot="{ Component }">
         <keep-alive>
@@ -38,5 +38,8 @@ const isViewMode = computed(() => storeState.viewMode)
 
 <style lang="less">
 @import "./style/basic";
-@import "./style/common";
+
+/deep/.n-config-provider {
+  transition: 0.3s;
+}
 </style>

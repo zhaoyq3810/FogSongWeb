@@ -10,7 +10,7 @@
 
 <style scoped lang="less">
 .home {
-  background: #B7E8BD;
+  //background: #B7E8BD;
   height: 1000px;
 }
 </style>

@@ -21,6 +21,13 @@ export function goTel(tel: string) {
   window.location.href = `tel:${tel}`
 }
 
+// 打开新页面
+export function newOpenWeb(url: string) {
+  const windowReference: any = window.open()
+
+  windowReference.location = url
+}
+
 // 当前运行环境
 export const deviceBrowser = () => {
   const u: any = navigator.userAgent

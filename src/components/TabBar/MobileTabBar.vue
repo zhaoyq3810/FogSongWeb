@@ -49,8 +49,9 @@ const goHome = () => router.push('/')
   justify-content: center;
   align-items: center;
   .icon {
-    font-size: 40px;
+    font-size: 36px;
     color: black;
+    margin-left: 10px;
   }
 }
 
