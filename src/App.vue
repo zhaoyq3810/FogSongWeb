@@ -3,7 +3,7 @@
     <n-global-style />
     <WebTabBar v-if="$route.meta.tabbar && isViewMode === 'Web'" />
     <MobileTabBar v-if="$route.meta.tabbar && isViewMode === 'Mobile'" />
-    <div id="app-content-box" ref="view" v-resize="viewResize">
+    <div id="app-content-box" ref="view" v-resize="viewResize" :style="there">
       <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" v-if="$route.meta.cache" :key="$route.name" />
@@ -20,6 +20,7 @@ import MobileTabBar from '@/components/TabBar/MobileTabBar.vue'
 import viewMode from '@/utils/viewMode'
 import { IEl, IObj, IRefEl } from '@/interface'
 import { storeState } from '@/store/Tools'
+import { blackThere, whiteThere } from '@/style/there'
 
 onMounted(() => {
   viewMode((view.value as IEl).offsetWidth)
@@ -33,6 +34,23 @@ function viewResize(info: IObj) {
 
 // 视图模式
 const isViewMode = computed(() => storeState.viewMode)
+
+// 当前主题
+const there = computed(() => {
+  let t
+  switch (storeState.there) {
+    case 'white':
+      t = whiteThere
+      break
+    case 'black':
+      t = blackThere
+      break
+    case 'custom':
+      t = storeState.thereCustom
+      break
+  }
+  return t
+})
 
 </script>
 

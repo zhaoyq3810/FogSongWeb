@@ -1,5 +1,5 @@
 <template>
-  <div id="tab-bar-web">
+  <div id="tab-bar-web" :style="currentThere">
     <div class="left" @click="goHome">
       <n-icon class="icon" :component="Planet" />
       <div class="name">FogSong</div>
@@ -10,6 +10,7 @@
         class="search-input"
         round
         clearable
+        :input-props="{style: { color: currentThere.color }}"
         :placeholder="$t('search')"
       >
         <template #prefix>
@@ -44,11 +45,25 @@
           </div>
         </div>
       </n-popover>
-      <n-popover trigger="hover">
+      <n-popover trigger="click">
         <template #trigger>
-          <n-icon class="icon" :component="LogoGithub" @click="goGithub" />
+          <n-popover trigger="hover">
+            <template #trigger>
+              <n-icon class="icon" :component="LogoGithub" />
+            </template>
+            <span>{{ $t('github.popover') }}</span>
+          </n-popover>
         </template>
-        <span>{{ $t('github.popover') }}</span>
+        <div class="go-github-box">
+          <div
+            v-for="d in ['Github', 'Gitee']"
+            :key="d"
+            class="go-source_code-items"
+            @click="goSourceCode(d)"
+          >
+            {{ d }}
+          </div>
+        </div>
       </n-popover>
       <n-popover trigger="click">
         <template #trigger>
@@ -82,11 +97,40 @@
           </n-popover>
         </template>
         <div class="there-box">
-          <div class="there">
-            <div :style="whiteThere">{{ $t('there.white') }}</div>
-            <div :style="blackThere">{{ $t('there.black') }}</div>
+          <div
+            v-for="d in ['white', 'black', 'custom']"
+            :key="d"
+            class="there-items"
+            :style="{
+              ...(d === 'white' ? whiteThere : {}),
+              ...(d === 'black' ? blackThere : {}),
+              ...(d === 'custom' ? customThere : {}),
+              ...(there === d ? {} : {border: 'none'})
+            }"
+            @click="setThere(d)"
+          >
+            {{ $t(`there.${ d }`) }}
+            <n-icon v-if="d === 'custom'" class="icon" :component="Flower" @click.stop="customColorShow = !customColorShow" />
           </div>
-          <div class="there-custom">{{ $t('there.custom') }}</div>
+          <!--自定义颜色板弹出框-->
+          <div v-show="customColorShow" class="custom-color-box">
+            <div class="label">文字颜色</div>
+            <div class="swatches">
+              <n-color-picker
+                :default-value="defaultTextColor" :show-alpha="false"
+                :actions="['confirm']"
+                @confirm="setTextColor"
+              />
+            </div>
+            <div class="label">背景颜色</div>
+            <div class="swatches">
+              <n-color-picker
+                :default-value="defaultBGColor" :show-alpha="false"
+                :actions="['confirm']"
+                @confirm="setBGColor"
+              />
+            </div>
+          </div>
         </div>
       </n-popover>
     </div>
@@ -94,10 +138,11 @@
 </template>
 
 <script setup lang="ts">
-import { Planet, NavigateSharp, ReloadCircleSharp, LogoWechat, ColorPalette, Language, LogoGithub } from '@vicons/ionicons5'
+import { Planet, NavigateSharp, ReloadCircleSharp, LogoWechat, ColorPalette, Language, LogoGithub, Flower } from '@vicons/ionicons5'
 import router from '@/router'
 import { whiteThere, blackThere } from '@/style/there'
 import i18n from '@/i18n/i18n'
+import { storeCommit, storeState } from '@/store/Tools'
 import { newOpenWeb } from '@/utils/common'
 
 // 去首页
@@ -109,14 +154,67 @@ const act = computed(() => value.value !== '')
 
 // 当前语言
 const lang = ref(sessionStorage.getItem('fogsong_lang') || 'cn')
-function setLang(language: 'cn' | 'en') {
-  lang.value = language
-  sessionStorage.setItem('fogsong_lang', language)
-  i18n.global.locale = language
+function setLang(d: 'cn' | 'en') {
+  lang.value = d
+  sessionStorage.setItem('fogsong_lang', d)
+  i18n.global.locale = d
 }
-// 去 Github
-function goGithub() {
-  newOpenWeb('https://github.com/zhaoyq3810/FogSongWeb')
+// 去源码
+function goSourceCode(mode: string) {
+  if (mode === 'Github') newOpenWeb('https://github.com/zhaoyq3810/FogSongWeb')
+  if (mode === 'Gitee') newOpenWeb('https://gitee.com/zhaoyq_3810/my_personal_web')
+}
+// 当前主题
+const there = ref('white')
+if (sessionStorage.getItem('fogsong_there')) {
+  there.value = sessionStorage.getItem('fogsong_there') as string
+  if (there.value === 'custom' && sessionStorage.getItem('fogsong_there_custom')) {
+    storeCommit('setThereCustom', JSON.parse(sessionStorage.getItem('fogsong_there_custom') as string))
+  }
+} else {
+  sessionStorage.setItem('fogsong_there', there.value)
+}
+storeCommit('setThere', there.value)
+const customThere = storeState.thereCustom
+const currentThere = computed(() => {
+  let t
+  switch (storeState.there) {
+    case 'white':
+      t = whiteThere
+      break
+    case 'black':
+      t = blackThere
+      break
+    case 'custom':
+      t = customThere
+      break
+  }
+  return t
+})
+function setThere(d: string) {
+  there.value = d
+  sessionStorage.setItem('fogsong_there', d)
+  storeCommit('setThere', d)
+}
+// 设置自定义颜色板
+const customColorShow = ref(false)
+const defaultTextColor = computed(() => storeState.thereCustom.color)
+const defaultBGColor = computed(() => storeState.thereCustom.backgroundColor)
+function setTextColor(val:string) {
+  const d = {
+    color: val,
+    backgroundColor: storeState.thereCustom.backgroundColor,
+  }
+  sessionStorage.setItem('fogsong_there_custom', JSON.stringify(d))
+  storeCommit('setThereCustom', d)
+}
+function setBGColor(val:string) {
+  const d = {
+    color: storeState.thereCustom.color,
+    backgroundColor: val,
+  }
+  sessionStorage.setItem('fogsong_there_custom', JSON.stringify(d))
+  storeCommit('setThereCustom', d)
 }
 
 </script>
@@ -128,6 +226,12 @@ function goGithub() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: (3 * @pc) solid;
+  .act-border;
+}
+#tab-bar-web::after {
+  content: '';
+  display: block;
   border-bottom: (3 * @pc) solid;
   .act-border;
 }
@@ -148,7 +252,7 @@ function goGithub() {
 }
 .center {
   height: (60 * @pc);
-  padding: 0 50px;
+  padding: 0 (425 * @pc);
   flex: 1 1;
   display: flex;
   justify-content: center;
@@ -209,25 +313,52 @@ function goGithub() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: (300 * @pc);
+  width: (150 * @pc);
 }
-.there {
+.there-items {
   width: 100%;
   height: (50 * @pc);
   display: flex;
   justify-content: space-between;
-  >div {
-    height: 100%;
-    width: 48%;
-    font-size: (20 * @pc);
-    border-radius: (5 * @pc);
-    .flexCenter;
+  font-size: (20 * @pc);
+  border-radius: (5 * @pc);
+  border: solid (2 * @pc);
+  margin-bottom: (10 * @pc);
+  .flexCenter;
+  .act-border;
+  .icon {
+    margin-left: (10 * @pc);
+    font-size: (30 * @pc);
   }
+}
+.there-custom {
 }
 
 .lang-items {
   height: (50 * @pc);
   font-size: (20 * @pc);
   .flexCenter;
+}
+
+.go-source_code-items {
+  width: (60 * @pc);
+  height: (50 * @pc);
+  font-size: (20 * @pc);
+  .flexCenter;
+}
+.custom-color-box {
+  width: 100%;
+  padding-top: (10 * @pc);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: dashed (3 * @pc);
+  .label {
+    font-size: (18 * @pc);
+  }
+  .swatches {
+    width: 100%;
+  }
 }
 </style>

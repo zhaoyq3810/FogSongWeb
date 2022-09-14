@@ -10,6 +10,10 @@ export default {
   viewMode: '',
   // 当前主题
   there: '',
+  thereCustom: {
+    backgroundColor: '#f1f2f6',
+    color: '#323734',
+  },
 
   // 用户 id
   userId: '',

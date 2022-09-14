@@ -137,7 +137,6 @@ body {
       display: flex;
       flex-direction: column;
       height: 100%;
-      background: #F1F2F6;
     }
   }
   #app-content-box {
@@ -145,12 +144,14 @@ body {
     overflow-y: auto;
     .wrap {
       height: 100%;
+      overflow-y: auto;
     }
   }
 }
 
 // 美化滚动条
 ::-webkit-scrollbar {
+  background: transparent;
   width: (14 * @pc);
   height: (30 * @pc);
 }
