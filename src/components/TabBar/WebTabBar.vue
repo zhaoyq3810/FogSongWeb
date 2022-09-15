@@ -8,8 +8,8 @@
       <n-input
         v-model:value="value"
         class="search-input"
-        round
-        clearable
+        :round="true"
+        :clearable="true"
         :input-props="{style: { color: currentThere.color }}"
         :placeholder="$t('search')"
       >
@@ -114,18 +114,20 @@
           </div>
           <!--自定义颜色板弹出框-->
           <div v-show="customColorShow" class="custom-color-box">
-            <div class="label">文字颜色</div>
+            <div class="label">{{ $t('there.color') }}</div>
             <div class="swatches">
               <n-color-picker
-                :default-value="defaultTextColor" :show-alpha="false"
+                :default-value="defaultTextColor"
+                :show-alpha="false"
                 :actions="['confirm']"
                 @confirm="setTextColor"
               />
             </div>
-            <div class="label">背景颜色</div>
+            <div class="label">{{ $t('there.bgColor') }}</div>
             <div class="swatches">
               <n-color-picker
-                :default-value="defaultBGColor" :show-alpha="false"
+                :default-value="defaultBGColor"
+                :show-alpha="false"
                 :actions="['confirm']"
                 @confirm="setBGColor"
               />
@@ -135,6 +137,7 @@
       </n-popover>
     </div>
   </div>
+  <div class="border-b" />
 </template>
 
 <script setup lang="ts">
@@ -175,7 +178,7 @@ if (sessionStorage.getItem('fogsong_there')) {
   sessionStorage.setItem('fogsong_there', there.value)
 }
 storeCommit('setThere', there.value)
-const customThere = storeState.thereCustom
+const customThere = computed(() => storeState.thereCustom)
 const currentThere = computed(() => {
   let t
   switch (storeState.there) {
@@ -186,7 +189,7 @@ const currentThere = computed(() => {
       t = blackThere
       break
     case 'custom':
-      t = customThere
+      t = customThere.value
       break
   }
   return t
@@ -226,12 +229,8 @@ function setBGColor(val:string) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: (3 * @pc) solid;
-  .act-border;
 }
-#tab-bar-web::after {
-  content: '';
-  display: block;
+.border-b {
   border-bottom: (3 * @pc) solid;
   .act-border;
 }
@@ -260,9 +259,14 @@ function setBGColor(val:string) {
   .search-input {
     height: (50 * @pc);
     background: transparent;
+    .act-border;
     /deep/.n-input__input-el {
       height: (50 * @pc);
       font-size: (20 * @pc);
+      border: (0.5 * @pc) solid transparent;
+    }
+    /deep/.n-input__border {
+      border: none;
     }
     .icon {
       font-size: (36 * @pc);
@@ -325,7 +329,7 @@ function setBGColor(val:string) {
   border: solid (2 * @pc);
   margin-bottom: (10 * @pc);
   .flexCenter;
-  .act-border;
+  //.act-border;
   .icon {
     margin-left: (10 * @pc);
     font-size: (30 * @pc);

@@ -6,6 +6,8 @@ export default {
     white: '白色',
     black: '黑色',
     custom: '自定义',
+    color: '颜色',
+    bgColor: '背景颜色',
   },
   lang: {
     popover: '选择你能看懂的语言',

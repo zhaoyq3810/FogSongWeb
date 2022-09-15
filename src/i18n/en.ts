@@ -6,6 +6,8 @@ export default {
     white: 'White',
     black: 'Black',
     custom: 'Custom',
+    color: 'Color',
+    bgColor: 'BackgroundColor',
   },
   lang: {
     popover: 'Choose a language you can read',
