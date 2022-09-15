@@ -118,8 +118,9 @@
             <div class="swatches">
               <n-color-picker
                 :default-value="defaultTextColor"
-                :show-alpha="false"
+                :show-alpha="true"
                 :actions="['confirm']"
+                :modes="['hex', 'rgb']"
                 @confirm="setTextColor"
               />
             </div>
@@ -127,8 +128,9 @@
             <div class="swatches">
               <n-color-picker
                 :default-value="defaultBGColor"
-                :show-alpha="false"
+                :show-alpha="true"
                 :actions="['confirm']"
+                :modes="['rgb', 'hex']"
                 @confirm="setBGColor"
               />
             </div>
