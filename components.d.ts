@@ -8,14 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     MobileTabBar: typeof import('./src/components/TabBar/MobileTabBar.vue')['default']
-    NCard: typeof import('naive-ui')['NCard']
     NColorPicker: typeof import('naive-ui')['NColorPicker']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
-    NDialog: typeof import('naive-ui')['NDialog']
     NGlobalStyle: typeof import('naive-ui')['NGlobalStyle']
     NIcon: typeof import('naive-ui')['NIcon']
     NInput: typeof import('naive-ui')['NInput']
-    NModal: typeof import('naive-ui')['NModal']
     NPopover: typeof import('naive-ui')['NPopover']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
