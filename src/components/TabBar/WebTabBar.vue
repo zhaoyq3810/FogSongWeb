@@ -231,6 +231,7 @@ function setBGColor(val:string) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: 0.3s;
 }
 .border-b {
   border-bottom: (3 * @pc) solid;
@@ -253,7 +254,7 @@ function setBGColor(val:string) {
 }
 .center {
   height: (60 * @pc);
-  padding: 0 (425 * @pc);
+  padding: 0 55% 0 (20 * @pc);
   flex: 1 1;
   display: flex;
   justify-content: center;

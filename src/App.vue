@@ -56,8 +56,4 @@ const there = computed(() => {
 
 <style lang="less">
 @import "./style/basic";
-
-/deep/.n-config-provider {
-  transition: 0.3s;
-}
 </style>
